@@ -22,12 +22,13 @@ def get_connection(with_db=True):
     if DB_USE_SSL in ('true', '1') or (DB_USE_SSL == 'auto' and DB_PORT == 4000):
         ssl_config = {'ssl': True}
 
+    default_fallback_db = 'test' if DB_PORT == 4000 else None
     conn_kwargs = {
         'host': DB_HOST,
         'port': DB_PORT,
         'user': DB_USER,
         'password': DB_PASSWORD,
-        'database': DB_NAME if with_db else None,
+        'database': DB_NAME if with_db else default_fallback_db,
         'cursorclass': DictCursor,
         'autocommit': True
     }
@@ -38,11 +39,14 @@ def get_connection(with_db=True):
 
 def init_database():
     """Initializes the database and all required tables."""
-    # 1. Connect without specifying database to create tuition_db if not exists
-    conn = get_connection(with_db=False)
-    with conn.cursor() as cursor:
-        cursor.execute(f"CREATE DATABASE IF NOT EXISTS `{DB_NAME}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;")
-    conn.close()
+    # 1. Connect to create tuition_db if not exists
+    try:
+        conn = get_connection(with_db=False)
+        with conn.cursor() as cursor:
+            cursor.execute(f"CREATE DATABASE IF NOT EXISTS `{DB_NAME}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;")
+        conn.close()
+    except Exception as e:
+        print("Note during database creation:", e)
 
     # 2. Connect to tuition_db and create tables
     conn = get_connection(with_db=True)

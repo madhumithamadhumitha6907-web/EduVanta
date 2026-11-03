@@ -17,6 +17,7 @@ frontend/dist/
 
 # Git binary & tools
 git/
+git.cmd
 mingit.zip
 
 # OS
