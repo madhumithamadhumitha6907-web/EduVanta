@@ -1,0 +1,1150 @@
+/* ==========================================================================
+   ACADEMIC CASE STUDY: DATABASE INDEXING & QUERY OPTIMIZATION
+   Theme: Professional Academic Clean White & Deep Blue
+   ========================================================================== */
+
+:root {
+  /* Color Palette */
+  --primary-navy: #0f2537;
+  --secondary-navy: #1a365d;
+  --royal-blue: #2563eb;
+  --accent-blue: #3b82f6;
+  --soft-blue-bg: #f0f7ff;
+  --light-blue-tint: #e0f2fe;
+  --card-border-blue: #bfdbfe;
+  
+  --pure-white: #ffffff;
+  --off-white: #f8fafc;
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  
+  --success-green: #059669;
+  --warning-amber: #d97706;
+  --danger-crimson: #dc2626;
+  --info-purple: #7c3aed;
+
+  /* Typography */
+  --font-serif: "Merriweather", "Georgia", "Cambria", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-mono: "Fira Code", "Consolas", "Courier New", monospace;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+  --shadow-blue: 0 8px 20px -4px rgba(37, 99, 235, 0.15);
+
+  /* Dimensions */
+  --header-height: 70px;
+  --max-content-width: 1040px;
+  --border-radius-sm: 6px;
+  --border-radius-md: 10px;
+  --border-radius-lg: 16px;
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--off-white);
+  color: var(--slate-800);
+  line-height: 1.68;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   TOP ACADEMIC NAVIGATION BAR
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--pure-white);
+  border-bottom: 2px solid var(--light-blue-tint);
+  box-shadow: var(--shadow-sm);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, var(--secondary-navy), var(--royal-blue));
+  color: var(--pure-white);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.brand-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.brand-subtitle {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--slate-500);
+  font-weight: 500;
+}
+
+/* Header Controls */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.page-indicator-pill {
+  background-color: var(--soft-blue-bg);
+  border: 1px solid var(--card-border-blue);
+  color: var(--secondary-navy);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.page-indicator-pill strong {
+  color: var(--royal-blue);
+}
+
+.nav-jump-select {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--slate-300);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--pure-white);
+  color: var(--slate-700);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.nav-jump-select:focus {
+  border-color: var(--royal-blue);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.btn-header {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid transparent;
+}
+
+.btn-prev, .btn-next {
+  background-color: var(--pure-white);
+  border: 1px solid var(--card-border-blue);
+  color: var(--secondary-navy);
+}
+
+.btn-prev:hover:not(:disabled), .btn-next:hover:not(:disabled) {
+  background-color: var(--soft-blue-bg);
+  color: var(--royal-blue);
+  border-color: var(--accent-blue);
+}
+
+.btn-prev:disabled, .btn-next:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary-action {
+  background-color: var(--royal-blue);
+  color: var(--pure-white);
+}
+
+.btn-primary-action:hover {
+  background-color: #1d4ed8;
+}
+
+/* Progress bar under header */
+.reading-progress-track {
+  width: 100%;
+  height: 3px;
+  background-color: var(--slate-200);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.reading-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--royal-blue), #60a5fa);
+  width: 8.33%;
+  transition: width 0.3s ease;
+}
+
+/* ==========================================================================
+   PAGE NAVIGATION DRAWER / PILL BAR
+   ========================================================================== */
+.quick-nav-bar {
+  background-color: var(--pure-white);
+  border-bottom: 1px solid var(--slate-200);
+  padding: 0.5rem 1rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  scrollbar-width: thin;
+}
+
+.quick-nav-bar::-webkit-scrollbar {
+  height: 4px;
+}
+
+.quick-nav-bar::-webkit-scrollbar-thumb {
+  background-color: var(--slate-300);
+  border-radius: 4px;
+}
+
+.nav-pill-btn {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--slate-600);
+  padding: 0.3rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.nav-pill-btn:hover {
+  background-color: var(--slate-100);
+  color: var(--secondary-navy);
+}
+
+.nav-pill-btn.active {
+  background-color: var(--soft-blue-bg);
+  border-color: var(--card-border-blue);
+  color: var(--royal-blue);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   MAIN CONTENT CONTAINER & PAGE SYSTEM
+   ========================================================================== */
+.main-wrapper {
+  flex: 1;
+  max-width: var(--max-content-width);
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+/* Academic Page Card */
+.case-study-page {
+  display: none; /* Managed by JS for strict single-page view */
+  background-color: var(--pure-white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 3rem;
+  min-height: 720px;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.case-study-page.active-page {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Page Header & Meta */
+.page-top-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--slate-100);
+  padding-bottom: 0.85rem;
+  margin-bottom: 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--slate-500);
+}
+
+.page-top-meta .topic-tag {
+  color: var(--royal-blue);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.page-heading-group {
+  margin-bottom: 2rem;
+}
+
+.page-category-badge {
+  display: inline-block;
+  background-color: var(--soft-blue-bg);
+  color: var(--secondary-navy);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.6rem;
+  border-left: 3px solid var(--royal-blue);
+}
+
+.page-title {
+  font-family: var(--font-serif);
+  font-size: 2.15rem;
+  color: var(--primary-navy);
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+  font-size: 1.05rem;
+  color: var(--slate-600);
+  margin-top: 0.5rem;
+  font-weight: 400;
+}
+
+/* Academic Typography Elements */
+h2.section-heading {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  color: var(--secondary-navy);
+  margin: 2rem 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--slate-200);
+  padding-bottom: 0.4rem;
+}
+
+h3.sub-section-heading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--slate-800);
+  margin: 1.5rem 0 0.75rem 0;
+}
+
+p.academic-paragraph {
+  font-size: 1rem;
+  color: var(--slate-700);
+  margin-bottom: 1.25rem;
+  text-align: justify;
+}
+
+/* Mathematical Formulation Boxes */
+.math-box {
+  background-color: var(--soft-blue-bg);
+  border: 1px solid var(--card-border-blue);
+  border-left: 5px solid var(--royal-blue);
+  border-radius: var(--border-radius-md);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.math-box-header {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--secondary-navy);
+  margin-bottom: 0.65rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.math-formula-display {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  text-align: center;
+  padding: 0.75rem 0;
+  color: var(--primary-navy);
+  font-weight: 600;
+  overflow-x: auto;
+}
+
+.math-explanation {
+  font-size: 0.92rem;
+  color: var(--slate-600);
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+/* Proof Container */
+.proof-box {
+  background-color: #fafbfc;
+  border: 1px solid var(--slate-300);
+  border-radius: var(--border-radius-md);
+  padding: 1.75rem;
+  margin: 1.75rem 0;
+  position: relative;
+}
+
+.proof-badge {
+  display: inline-block;
+  background-color: var(--primary-navy);
+  color: var(--pure-white);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.proof-step {
+  margin-bottom: 1.5rem;
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--accent-blue);
+}
+
+.proof-step:last-child {
+  margin-bottom: 0.5rem;
+}
+
+.step-label {
+  font-weight: 700;
+  color: var(--secondary-navy);
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+}
+
+.qed-symbol {
+  text-align: right;
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--royal-blue);
+  margin-top: 1rem;
+}
+
+/* Callout Boxes */
+.callout {
+  padding: 1.25rem;
+  border-radius: var(--border-radius-md);
+  margin: 1.5rem 0;
+  border-left: 4px solid;
+}
+
+.callout-info {
+  background-color: var(--soft-blue-bg);
+  border-left-color: var(--royal-blue);
+  color: var(--slate-700);
+}
+
+.callout-example {
+  background-color: #f0fdf4;
+  border-left-color: var(--success-green);
+  color: #166534;
+}
+
+.callout-dbms {
+  background-color: #faf5ff;
+  border-left-color: var(--info-purple);
+  color: #5b21b6;
+}
+
+.callout-warning {
+  background-color: #fffbeb;
+  border-left-color: var(--warning-amber);
+  color: #92400e;
+}
+
+.callout-title {
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Data Tables */
+.academic-table-container {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--slate-200);
+  box-shadow: var(--shadow-sm);
+}
+
+.academic-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  text-align: left;
+}
+
+.academic-table th {
+  background-color: var(--secondary-navy);
+  color: var(--pure-white);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  border-bottom: 2px solid var(--royal-blue);
+}
+
+.academic-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--slate-200);
+  color: var(--slate-700);
+}
+
+.academic-table tbody tr:nth-child(even) {
+  background-color: var(--slate-50);
+}
+
+.academic-table tbody tr:hover {
+  background-color: var(--soft-blue-bg);
+}
+
+.badge-scan {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.badge-bad {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.badge-ok {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.badge-good {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+/* Lists */
+.academic-list {
+  margin: 1rem 0 1.25rem 1.5rem;
+  color: var(--slate-700);
+}
+
+.academic-list li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.35rem;
+}
+
+.academic-list li strong {
+  color: var(--secondary-navy);
+}
+
+/* Code Snippets & Monospace */
+code {
+  font-family: var(--font-mono);
+  background-color: var(--slate-100);
+  color: var(--secondary-navy);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.88rem;
+}
+
+pre {
+  background-color: var(--slate-900);
+  color: #f1f5f9;
+  padding: 1.25rem;
+  border-radius: var(--border-radius-md);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  margin: 1.25rem 0;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   SPECIFIC PAGE STYLES
+   ========================================================================== */
+
+/* Page 1: Academic Title Page */
+.title-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 780px;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  border: 2px double var(--card-border-blue);
+  border-radius: var(--border-radius-md);
+}
+
+.college-crest-placeholder {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--secondary-navy), var(--royal-blue));
+  color: var(--pure-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.25rem;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 1rem;
+}
+
+.college-header-block {
+  margin-bottom: 2rem;
+}
+
+.inst-name {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--secondary-navy);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dept-name {
+  font-size: 1rem;
+  color: var(--slate-600);
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+.title-main-block {
+  margin: 2rem 0;
+}
+
+.case-study-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--royal-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.75rem;
+}
+
+.report-main-title {
+  font-family: var(--font-serif);
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: var(--primary-navy);
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.report-sub-title {
+  font-size: 1.15rem;
+  color: var(--slate-600);
+  font-style: italic;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.metadata-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 780px;
+  margin: 2.5rem 0;
+  text-align: left;
+}
+
+.meta-card {
+  background-color: var(--soft-blue-bg);
+  border: 1px dashed var(--card-border-blue);
+  border-radius: var(--border-radius-md);
+  padding: 1.25rem;
+}
+
+.meta-card h4 {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--royal-blue);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.placeholder-text {
+  color: var(--slate-500);
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.placeholder-editable {
+  background-color: var(--pure-white);
+  border: 1px solid var(--slate-300);
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  display: inline-block;
+  margin: 0.15rem 0;
+  color: var(--secondary-navy);
+  font-weight: 600;
+  font-style: normal;
+}
+
+.academic-year-tag {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--secondary-navy);
+  border-top: 1px solid var(--slate-300);
+  padding-top: 1rem;
+  width: 60%;
+}
+
+/* Page 2: Dedicated Abstract */
+.abstract-container {
+  max-width: 820px;
+  margin: 1.5rem auto 0 auto;
+}
+
+.abstract-dropcap::first-letter {
+  font-family: var(--font-serif);
+  font-size: 3.4rem;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.6rem;
+  margin-top: 0.15rem;
+  color: var(--secondary-navy);
+  font-weight: 700;
+}
+
+.keywords-section {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--slate-200);
+  font-size: 0.92rem;
+}
+
+.keywords-section strong {
+  color: var(--secondary-navy);
+}
+
+.keyword-tag {
+  display: inline-block;
+  background-color: var(--soft-blue-bg);
+  color: var(--royal-blue);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  margin: 0.2rem 0.25rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  border: 1px solid var(--card-border-blue);
+}
+
+/* SVG Diagrams */
+.diagram-container {
+  background-color: var(--pure-white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.diagram-caption {
+  font-size: 0.85rem;
+  color: var(--slate-500);
+  margin-top: 0.75rem;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   PAGE 8: INTERACTIVE DEMONSTRATION WORKSPACE
+   ========================================================================== */
+.calculator-panel {
+  background-color: var(--soft-blue-bg);
+  border: 1px solid var(--card-border-blue);
+  border-radius: var(--border-radius-md);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.calc-inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input-field-group label {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--secondary-navy);
+}
+
+.input-field-group input, .input-field-group select {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--slate-300);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.95rem;
+  outline: none;
+  background-color: var(--pure-white);
+  transition: all 0.2s ease;
+}
+
+.input-field-group input:focus, .input-field-group select:focus {
+  border-color: var(--royal-blue);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.calc-actions-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.metrics-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.metric-card {
+  background-color: var(--pure-white);
+  border: 1px solid var(--card-border-blue);
+  border-radius: var(--border-radius-md);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.metric-card-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--slate-500);
+  margin-bottom: 0.35rem;
+}
+
+.metric-card-value {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--royal-blue);
+  margin: 0.25rem 0;
+}
+
+.metric-card-sub {
+  font-size: 0.75rem;
+  color: var(--slate-600);
+}
+
+/* Interactive Tabs inside Page 8 */
+.demo-subtabs-nav {
+  display: flex;
+  border-bottom: 2px solid var(--slate-200);
+  margin-bottom: 1.25rem;
+  gap: 0.5rem;
+}
+
+.demo-tab-btn {
+  background: none;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--slate-600);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.demo-tab-btn:hover {
+  color: var(--secondary-navy);
+}
+
+.demo-tab-btn.active-subtab {
+  color: var(--royal-blue);
+  border-bottom-color: var(--royal-blue);
+}
+
+.subtab-pane {
+  display: none;
+}
+
+.subtab-pane.active-pane {
+  display: block;
+}
+
+.generated-list-container {
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--slate-50);
+  padding: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.generated-item {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--slate-200);
+  display: flex;
+  justify-content: space-between;
+}
+
+.generated-item:last-child {
+  border-bottom: none;
+}
+
+.generated-item:hover {
+  background-color: var(--light-blue-tint);
+}
+
+/* Query Cost Simulator Layout */
+.simulator-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  background-color: var(--pure-white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+}
+
+.sim-result-box {
+  background-color: var(--soft-blue-bg);
+  border: 1px solid var(--card-border-blue);
+  border-radius: var(--border-radius-md);
+  padding: 1.25rem;
+}
+
+/* ==========================================================================
+   PAGE FOOTER CONTROLS & BOTTOM BAR
+   ========================================================================== */
+.page-footer-nav {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--slate-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-num-indicator {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--slate-500);
+}
+
+.page-nav-btns {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.site-footer {
+  background-color: var(--pure-white);
+  border-top: 1px solid var(--slate-200);
+  padding: 1.5rem 0;
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--slate-500);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (LAPTOPS, TABLETS, MOBILES)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .case-study-page {
+    padding: 2rem 1.5rem;
+  }
+  
+  .metadata-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .simulator-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  :root {
+    --header-height: auto;
+  }
+  
+  .header-container {
+    flex-direction: column;
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+  }
+  
+  .brand-section {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .header-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .nav-jump-select {
+    max-width: 130px;
+  }
+  
+  .case-study-page {
+    padding: 1.5rem 1rem;
+    border-radius: 8px;
+  }
+
+  .page-title {
+    font-size: 1.65rem;
+  }
+
+  .report-main-title {
+    font-size: 1.65rem;
+  }
+
+  p.academic-paragraph {
+    text-align: left;
+  }
+
+  .calc-actions-row {
+    flex-direction: column;
+  }
+
+  .calc-actions-row button {
+    width: 100%;
+  }
+
+  .page-footer-nav {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
+   PRINT / PDF EXPORT STYLING
+   ========================================================================== */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .site-header,
+  .quick-nav-bar,
+  .page-footer-nav,
+  .site-footer,
+  .calc-actions-row,
+  .demo-subtabs-nav {
+    display: none !important;
+  }
+
+  .main-wrapper {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* When printing, show ALL pages with page breaks */
+  .case-study-page {
+    display: block !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 20mm 15mm !important;
+    min-height: auto !important;
+  }
+
+  .math-box, .proof-box, .callout {
+    box-shadow: none !important;
+    border: 1px solid #999 !important;
+  }
+}

@@ -1,0 +1,24 @@
+# Python
+venv/
+backend/venv/
+__pycache__/
+*.pyc
+.env
+backend/.env
+uploads/
+backend/uploads/
+
+# Node / React
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+.env.local
+
+# Git binary & tools
+git/
+mingit.zip
+
+# OS
+.DS_Store
+Thumbs.db
