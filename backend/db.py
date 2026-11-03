@@ -4,25 +4,37 @@ from pymysql.cursors import DictCursor
 import bcrypt
 from dotenv import load_dotenv
 
-load_dotenv()
+# Explicitly load .env from the backend directory
+env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env')
+load_dotenv(env_path)
 
 DB_HOST = os.getenv('DB_HOST', '127.0.0.1')
 DB_PORT = int(os.getenv('DB_PORT', 3306))
 DB_USER = os.getenv('DB_USER', 'root')
 DB_PASSWORD = os.getenv('DB_PASSWORD', '')
 DB_NAME = os.getenv('DB_NAME', 'tuition_db')
+DB_USE_SSL = os.getenv('DB_USE_SSL', 'auto').lower()
 
 def get_connection(with_db=True):
-    """Establishes and returns a MySQL database connection."""
-    return pymysql.connect(
-        host=DB_HOST,
-        port=DB_PORT,
-        user=DB_USER,
-        password=DB_PASSWORD,
-        database=DB_NAME if with_db else None,
-        cursorclass=DictCursor,
-        autocommit=True
-    )
+    """Establishes and returns a MySQL / TiDB Cloud database connection."""
+    # TiDB Cloud requires SSL (typically on port 4000 or when DB_USE_SSL is enabled)
+    ssl_config = None
+    if DB_USE_SSL in ('true', '1') or (DB_USE_SSL == 'auto' and DB_PORT == 4000):
+        ssl_config = {'ssl': True}
+
+    conn_kwargs = {
+        'host': DB_HOST,
+        'port': DB_PORT,
+        'user': DB_USER,
+        'password': DB_PASSWORD,
+        'database': DB_NAME if with_db else None,
+        'cursorclass': DictCursor,
+        'autocommit': True
+    }
+    if ssl_config:
+        conn_kwargs['ssl'] = ssl_config
+
+    return pymysql.connect(**conn_kwargs)
 
 def init_database():
     """Initializes the database and all required tables."""

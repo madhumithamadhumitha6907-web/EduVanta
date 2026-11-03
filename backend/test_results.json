@@ -1,0 +1,212 @@
+[
+  {
+    "id": "DB-01",
+    "category": "Database",
+    "name": "Direct Connection to MySQL",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "DB-02",
+    "category": "Database",
+    "name": "Verify All 10 Required Tables",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "AUTH-01",
+    "category": "Authentication",
+    "name": "Student Registration (Pending Status)",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "AUTH-02",
+    "category": "Authentication",
+    "name": "Pending Student Login Blocked (403)",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "AUTH-03",
+    "category": "Authentication",
+    "name": "Admin / Teacher Login & Token Issue",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "AUTH-04",
+    "category": "Authentication",
+    "name": "Admin Approval of Student Account",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "AUTH-05",
+    "category": "Authentication",
+    "name": "Approved Student Successful Login",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "AUTH-06",
+    "category": "Authentication",
+    "name": "Student /api/auth/me Profile Check",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "SEC-01",
+    "category": "Security",
+    "name": "Invalid Password Rejected (401)",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "SEC-02",
+    "category": "Security",
+    "name": "Student Denied Access to Admin APIs (403)",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "SEC-03",
+    "category": "Security",
+    "name": "Unauthenticated Request Rejected (401)",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "SEC-04",
+    "category": "Security",
+    "name": "Passwords Stored as Secure Bcrypt Hashes",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "SEC-05",
+    "category": "Security",
+    "name": "File Upload Extension Validation (.exe blocked)",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "DASH-01",
+    "category": "Dashboard",
+    "name": "Admin Overview KPI Metrics",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "CLASS-01",
+    "category": "Live Classes",
+    "name": "Teacher Schedule Class & Meeting Code",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "CLASS-02",
+    "category": "Live Classes",
+    "name": "Student Join Class & Auto Attendance",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "CLASS-03",
+    "category": "Live Classes",
+    "name": "Teacher View Class Attendance List",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "ASSIGN-01",
+    "category": "Assignments",
+    "name": "Teacher Create Daily Assignment",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "ASSIGN-02",
+    "category": "Assignments",
+    "name": "Student Upload & Submit Homework PDF",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "ASSIGN-03",
+    "category": "Assignments",
+    "name": "Teacher Review & Grade Submission",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "MCQ-01",
+    "category": "MCQ Tests",
+    "name": "Teacher Create Weekly Test",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "MCQ-02",
+    "category": "MCQ Tests",
+    "name": "Teacher Add 4-Option MCQ Question",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "MCQ-03",
+    "category": "MCQ Tests",
+    "name": "Anti-Cheat: Answer Key Hidden from Students",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "MCQ-04",
+    "category": "MCQ Tests",
+    "name": "Student Online Quiz Taking & Auto-Evaluation",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "MCQ-05",
+    "category": "MCQ Tests",
+    "name": "Teacher Publish Test Results & Ranks",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "PERF-01",
+    "category": "Performance",
+    "name": "Leaderboard Calculation with Tied Score Handling",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "PERF-02",
+    "category": "Performance",
+    "name": "Student Personalized Report Card History",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "LIB-01",
+    "category": "Reading Library",
+    "name": "Fetch Catalog, Difficulty & Search Filter",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "LIB-02",
+    "category": "Reading Library",
+    "name": "Teacher Add and Delete Library Resource",
+    "status": "PASSED",
+    "error": null
+  },
+  {
+    "id": "NOTIF-01",
+    "category": "Announcements",
+    "name": "Teacher Post & Student Receive Notice",
+    "status": "PASSED",
+    "error": null
+  }
+]

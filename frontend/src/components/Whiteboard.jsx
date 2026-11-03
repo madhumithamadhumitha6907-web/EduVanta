@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
-
-const SOCKET_SERVER_URL = 'http://127.0.0.1:5000';
+import { SERVER_BASE as SOCKET_SERVER_URL } from '../api';
 
 export default function Whiteboard({ classId, user }) {
   const canvasRef = useRef(null);

@@ -60,8 +60,8 @@ export default function StudentDashboard({ user, onNavigateToClasses, onNavigate
             <p className="text-muted small">
               View live teaching notes, grammar formulas, and teacher drawings in real time.
             </p>
-            <button className="btn btn-outline-success btn-sm mt-auto" disabled>
-              <i className="bi bi-broadcast me-1"></i> Awaiting teacher stream
+            <button className="btn btn-success btn-sm mt-auto fw-semibold" onClick={onNavigateToClasses}>
+              <i className="bi bi-broadcast me-1"></i> Join Live Class & Whiteboard
             </button>
           </div>
         </div>

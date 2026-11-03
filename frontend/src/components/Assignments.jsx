@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import { apiRequest } from '../api';
-
-const API_BASE = 'http://127.0.0.1:5000';
+import { apiRequest, SERVER_BASE as API_BASE } from '../api';
 
 export default function Assignments({ user }) {
   const [assignments, setAssignments] = useState([]);
